@@ -9,3 +9,11 @@ previsualización de `despliegue utilizando Expo y Emulador de Android Studio`
 - Pantalla Principal
 
 ![Imagen despliegue Principal](./assets/imagenes/readme/Login.png)
+
+## Generar carpeta android
+
+para poder generar la carpeta android:
+
+```bash
+  npx expo prebuild
+```

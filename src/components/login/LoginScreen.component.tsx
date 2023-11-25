@@ -14,7 +14,7 @@ export const LoginScreen = () => {
    const navigation = useNavigation<homeScreenProp>();
    const [usuario, setUsuario] = useState<string>("");
    const [esconderContrasenia, setEsconderContrasenia] =
-      useState<boolean>(false);
+      useState<boolean>(true);
    const [contrasenia, setContrasenia] = useState<string>("");
 
    useEffect(() => {
@@ -23,87 +23,76 @@ export const LoginScreen = () => {
 
    const funLogin = () => {};
 
+   const funIrARegistro = () => {
+      navigation.navigate("Registro");
+   };
+
    return (
-      <LinearGradient
-         colors={["#C2A2F9", "#93ACF9"]}
-         style={styles.gradientContainer}
-      >
-         <StatusBar style="auto" />
-         <View style={styles.container}>
-            <View style={styles.login}>
-               <Image
-                  style={styles.logo}
-                  source={require("../../../assets/imagenes/favicon-gamertec.png")}
-               />
-               <Text style={styles.titulo}>Bienvenido,</Text>
-               <Text style={styles.tituloLigero}>a Gamertec</Text>
+      <View style={{ flex: 1 }}>
+         <LinearGradient
+            colors={["#C2A2F9", "#93ACF9"]}
+            style={styles.gradientContainer}
+         >
+            <StatusBar style="auto" />
+            <Image
+               style={styles.logo}
+               source={require("../../../assets/imagenes/favicon-gamertec.png")}
+            />
+            <Text style={styles.titulo}>Bienvenido,</Text>
+            <Text style={styles.tituloLigero}>a Gamertec</Text>
 
-               <InputTextCustom
-                  title="Usuario"
-                  placeholder="Ingrese usuario"
-                  value={usuario}
-                  functionChangeText={setUsuario}
-                  keyboardType="default"
-                  maxLength={15}
-               />
+            <InputTextCustom
+               title="Usuario"
+               placeholder="Ingrese usuario"
+               value={usuario}
+               functionChangeText={setUsuario}
+               keyboardType="default"
+               maxLength={15}
+            />
 
-               <InputPasswordCustom
-                  title="Contraseña"
-                  placeholder="Ingrese contraseña"
-                  value={contrasenia}
-                  functionChangeText={setContrasenia}
-                  activePassword={esconderContrasenia}
-                  functionActivePassword={() =>
-                     setEsconderContrasenia(!esconderContrasenia)
-                  }
-               />
+            <InputPasswordCustom
+               title="Contraseña"
+               placeholder="Ingrese contraseña"
+               value={contrasenia}
+               functionChangeText={setContrasenia}
+               activePassword={esconderContrasenia}
+               functionActivePassword={() =>
+                  setEsconderContrasenia(!esconderContrasenia)
+               }
+            />
 
-               <Text style={styles.olvido}>Has olvidado tu contraseña?</Text>
-               <TouchableOpacity style={styles.button} onPress={funLogin}>
-                  <Text style={styles.buttonText}>Login</Text>
-               </TouchableOpacity>
-               <View style={styles.footer}>
-                  <Text style={styles.noCuenta}>Aun no tienes cuenta?</Text>
-                  <Text style={styles.noCuentaRegistrate}>Regístrate</Text>
-               </View>
+            <Text style={styles.olvido}>Has olvidado tu contraseña?</Text>
+            <TouchableOpacity style={styles.button} onPress={funLogin}>
+               <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+               <Text style={styles.noCuenta}>Aun no tienes cuenta?</Text>
+               <Text style={styles.noCuentaRegistrate} onPress={funIrARegistro}>
+                  Regístrate
+               </Text>
             </View>
-         </View>
-      </LinearGradient>
+         </LinearGradient>
+      </View>
    );
 };
 const styles = StyleSheet.create({
    gradientContainer: {
       flex: 1,
-   },
-   container: {
-      display: "flex",
-      height: "100%",
-      borderWidth: 1,
-      // backgroundColor: "#E7F1F8",
-      alignItems: "center",
-      justifyContent: "center",
+      paddingHorizontal: 40,
+      paddingTop: 100,
    },
    logo: {
       width: 100,
       height: 100,
       marginBottom: 20,
-      // backgroundColor: "red",
-   },
-   login: {
-      display: "flex",
-      width: "80%",
       marginHorizontal: "auto",
-      flexDirection: "column",
-      // backgroundColor: "#d9f0ff",
-      alignItems: "center",
-      justifyContent: "center",
+      alignSelf: "center",
    },
    titulo: {
       fontSize: 30,
       color: "#fff",
       textAlign: "center",
-      fontFamily: "Poppins-900",
-      // backgroundColor: "red",
+      fontFamily: "Poppins-800",
       lineHeight: 35,
    },
    tituloLigero: {
@@ -111,7 +100,7 @@ const styles = StyleSheet.create({
       marginBottom: 20,
       color: "#fff",
       textAlign: "center",
-      fontFamily: "Poppins-500",
+      fontFamily: "Poppins-300",
       lineHeight: 35,
    },
    subtitulo: {
@@ -152,7 +141,6 @@ const styles = StyleSheet.create({
       color: "#fff",
       justifyContent: "center",
       marginTop: 20,
-      // backgroundColor: "yellow",
    },
    noCuenta: {
       color: "#fff",
@@ -165,6 +153,5 @@ const styles = StyleSheet.create({
       fontSize: 13,
       fontFamily: "Poppins-400",
       textDecorationLine: "underline",
-      // backgroundColor: "green",
    },
 });

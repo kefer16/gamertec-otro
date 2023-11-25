@@ -1,50 +1,56 @@
 import React, { useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen } from "./src/components/login/LoginScreen.component";
-import { useFonts } from "expo-font";
+import { RegistroScreen } from "./src/components/registro/RegistroScreen";
 import * as SplashScreen from "expo-splash-screen";
+import { useFonts } from "expo-font";
+import { View } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
 export type RootStackParamList = {
    Login: undefined;
-   Register: undefined;
+   Registro: undefined;
 };
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-   const [fontsLoaded] = useFonts({
-      "Poppins-100": require("./assets/fonts/Poppins/Poppins-Thin.ttf"),
-      "Poppins-200": require("./assets/fonts/Poppins/Poppins-ExtraLight.ttf"),
-      "Poppins-300": require("./assets/fonts/Poppins/Poppins-Light.ttf"),
-      "Poppins-400": require("./assets/fonts/Poppins/Poppins-Regular.ttf"),
-      "Poppins-500": require("./assets/fonts/Poppins/Poppins-Medium.ttf"),
-      "Poppins-600": require("./assets/fonts/Poppins/Poppins-SemiBold.ttf"),
-      "Poppins-700": require("./assets/fonts/Poppins/Poppins-Bold.ttf"),
-      "Poppins-800": require("./assets/fonts/Poppins/Poppins-ExtraBold.ttf"),
-      "Poppins-900": require("./assets/fonts/Poppins/Poppins-Black.ttf"),
+   const [fontsLoaded, fontError] = useFonts({
+      "Poppins-100": require("./assets/fonts/Poppins-Thin.ttf"),
+      "Poppins-200": require("./assets/fonts/Poppins-ExtraLight.ttf"),
+      "Poppins-300": require("./assets/fonts/Poppins-Light.ttf"),
+      "Poppins-400": require("./assets/fonts/Poppins-Regular.ttf"),
+      "Poppins-500": require("./assets/fonts/Poppins-Medium.ttf"),
+      "Poppins-600": require("./assets/fonts/Poppins-SemiBold.ttf"),
+      "Poppins-700": require("./assets/fonts/Poppins-Bold.ttf"),
+      "Poppins-800": require("./assets/fonts/Poppins-ExtraBold.ttf"),
+      "Poppins-900": require("./assets/fonts/Poppins-Black.ttf"),
    });
    const onLayoutRootView = useCallback(async () => {
-      if (fontsLoaded) {
+      if (fontsLoaded || fontError) {
          await SplashScreen.hideAsync();
       }
-   }, [fontsLoaded]);
+   }, [fontsLoaded, fontError]);
 
-   if (!fontsLoaded) {
+   if (!fontsLoaded && !fontError) {
       return null;
    }
 
    return (
-      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
          <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
                <Stack.Screen
                   name="Login"
                   component={LoginScreen}
                   options={{ title: "Login" }}
+               />
+               <Stack.Screen
+                  name="Registro"
+                  component={RegistroScreen}
+                  options={{ title: "Registro" }}
                />
             </Stack.Navigator>
          </NavigationContainer>
