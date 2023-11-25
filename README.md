@@ -17,3 +17,13 @@ para poder generar la carpeta android:
 ```bash
   npx expo prebuild
 ```
+## Generar APK o AAB 
+
+generar Nuevo Project Id:
+```bash
+  eas int
+```
+generar apk con el perfil de preview:
+```bash
+  eas build -p android --profile preview
+```
